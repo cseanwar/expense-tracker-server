@@ -1,5 +1,5 @@
 import express, { Request, Response } from 'express';
-import cors from 'cors';
+import cors, { CorsOptions } from 'cors';
 import dotenv from 'dotenv';
 import { MongoClient, ServerApiVersion, ObjectId } from 'mongodb';
 
@@ -9,12 +9,13 @@ const app = express();
 const port = process.env.PORT || 8000;
 const uri = process.env.MONGODB_URI || 'mongodb://localhost:27017';
 
-const corsOptions = {
-  origin: [
-    'http://localhost:3000',
-    process.env.CLIENT_URL,
-    // 'https://expense-tracker-client-taupe.vercel.app'
-  ],
+const allowedOrigins = [
+  'http://localhost:3000',
+  process.env.CLIENT_URL,
+].filter(Boolean) as string[];
+
+const corsOptions: CorsOptions = {
+  origin: allowedOrigins,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true
