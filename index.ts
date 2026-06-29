@@ -12,7 +12,8 @@ const uri = process.env.MONGODB_URI || 'mongodb://localhost:27017';
 const corsOptions = {
   origin: [
     'http://localhost:3000',
-    'https://expense-tracker-client-taupe.vercel.app'
+    process.env.CLIENT_URL,
+    // 'https://expense-tracker-client-taupe.vercel.app'
   ],
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
